@@ -1,0 +1,13 @@
+root = true
+
+[*]
+#使用lf方式换行
+end_of_line = lf
+#在每个文件结尾增加一个新行
+insert_final_newline = true
+#使用空格替换tab键
+indent_style = space
+#使用2个空格控制缩进
+indent_size = 2
+#所有文件使用utf-8编码
+charset = utf-8

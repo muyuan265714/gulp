@@ -1,8 +1,5 @@
-// 获取gulp
 var gulp = require('gulp');
-// 获取同步刷新插件
-var browserSync = require('browser-sync').create();
-// 获取压缩html插件
+var connect = require('gulp-connect');
 var htmlmin = require('gulp-htmlmin');
 // 获取压缩js插件
 var uglify = require('gulp-uglify');
@@ -11,74 +8,86 @@ var less = require('gulp-less');
 // 获取压缩css插件
 var minifyCss = require('gulp-minify-css');
 
-// 新建一个压缩html任务
-gulp.task('html',function(){
-  // 读取index.html文件
-  gulp.src('index.html')
-  // 传送至压缩htmlmin
-  .pipe(htmlmin({
-    // 清除空格
-    collapseWhitespace:true,
-    // 清除注释
-    removeComments:true
-  }))
-  .pipe(gulp.dest('dist/'))
-  .pipe(browserSync.stream());
-  // 读取page下的html
-  gulp.src('page/**/*.html')
-  .pipe(htmlmin({
-    // 清除空格
-    collapseWhitespace:true,
-    // 清除注释
-    removeComments:true
-  }))
-  .pipe(gulp.dest('dist/page'))
-  .pipe(browserSync.stream());
+var proxy = require('http-proxy-middleware');
+var babel = require('gulp-babel');
+
+gulp.task('html', function () {
+  gulp.src("app/index.html")
+    .pipe(htmlmin({
+      // 清除空格
+      collapseWhitespace: true,
+      // 清除注释
+      removeComments: true
+    }))
+    .pipe(gulp.dest('dist/'))
+    .pipe(connect.reload());
+
+  gulp.src("app/pages/**/*.html")
+    .pipe(htmlmin({
+      // 清除空格
+      collapseWhitespace: true,
+      // 清除注释
+      removeComments: true
+    }))
+    .pipe(gulp.dest('dist/pages'))
+    .pipe(connect.reload());
+})
+
+gulp.task('js', function () {
+  gulp.src('app/static/js/**/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('dist/static/js'))
+    .pipe(connect.reload());
 });
-// 新建一个压缩js任务
-gulp.task('js',function(){
-  gulp.src('js/**/*.js')
-  .pipe(uglify())
-  .pipe(gulp.dest('dist/js'))
-  .pipe(browserSync.stream());
+
+gulp.task('less', function () {
+  gulp.src('app/static/less/**/*.less')
+    .pipe(less())
+    .pipe(minifyCss())
+    .pipe(gulp.dest('dist/static/css'))
+    .pipe(connect.reload());
 });
-// 新建一个less编译css压缩任务
-gulp.task('less',function(){
-  gulp.src('less/**/*.less')
-  .pipe(less())
-  .pipe(minifyCss())
-  .pipe(gulp.dest('dist/css'))
-  .pipe(browserSync.stream());
+
+gulp.task('imgCopy', function () {
+  gulp.src('app/static/images/**/*.*')
+    .pipe(gulp.dest('dist/static/images'))
+    .pipe(connect.reload());
 });
-// 新建一个copy图片到dist文件夹任务
-gulp.task('imgCopy',function(){
-  gulp.src('images/**/*.*')
-  .pipe(gulp.dest('dist/images'))
-  .pipe(browserSync.stream());
-});
-// 新建一个监视任务监视文件变化
-gulp.task('watch',function(){
+
+gulp.task('watch', function () {
   // 监视HTML文件
-  gulp.watch(['index.html','page/**/*.html'],['html']);
+  gulp.watch(['app/index.html', 'app/pages/**/*.html'], ['html']);
   // 监视js文件
-  gulp.watch('js/**/*.js',['js']);
+  gulp.watch('app/static/js/**/*.js', ['js']);
   // 监视less文件
-  gulp.watch('less/**/*.less',['less']);
+  gulp.watch('app/static/less/**/*.less', ['less']);
   // 监视img文件
-  gulp.watch('images/**/*.*',['imgCopy']);
+  gulp.watch('app/static/images/**/*.*', ['imgCopy']);
 });
-// 新建一个刷新浏览器任务
-gulp.task('browser-sync',function(){
-  browserSync.init({
-    server:{
-      baseDir:'./dist'
-    },
-    port:80
+
+
+gulp.task('connectDist', function () {
+  connect.server({
+    name: 'Dist',
+    root: 'dist',
+    port: 8001,
+    livereload: true,
+    middleware: function (connect, opt) {
+      return [
+        proxy('/api', {
+          target: 'http://localhost:8088',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': '',
+          },
+        }),
+        proxy('/otherServer', {
+          target: 'http://IP:Port',
+          changeOrigin: true
+        })
+      ]
+    }
   });
 });
-// 新建一个copy，Lib文件任务
-gulp.task('lib',function(){
-  gulp.src('lib/**/*.*')
-  .pipe(gulp.dest('dist/lib/'));
-});
-gulp.task('default',['html','js','less','imgCopy','watch','browser-sync'])
+
+gulp.task('default', ['connectDist', 'watch']);

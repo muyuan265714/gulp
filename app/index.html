@@ -1,19 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="description" content="BigitaLoginPage">
-    
-    <title>PICC-人保车商管理系统</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="renderer" content="webkit">
+  <title>河南人保车商管理系统</title>
+
+  <link rel="shortcut icon" href="favicon.ico">
+  <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+  <link href="./static/css/animate.css" rel="stylesheet">
+  <link href="./static/css/style.css?v=4.1.0" rel="stylesheet">
+  <link href="./static/css/publicStyle.css" rel="stylesheet">
+  <style>
+    #list4 {
+      right: -100px;
+    }
+
+  </style>
 </head>
-<body>
-    啊阿三大苏打
-    1123
-    <div>21312</div>
-    <p>123</p>
-    <script src="./static/js/jquery-3.2.1.min.js"></script>
-    <script src="./static/js/bgt-Table-1.0.js"></script>
+
+<body class="gray-bg top-navigation">
+
+  <div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+      <div class="row border-bottom white-bg">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed"
+                type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a href="/index" class="navbar-brand">PICC</a>
+              <span>车商业务管理系统</span>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+              <ul class="nav navbar-nav">
+                <li class="active">
+                  <a aria-expanded="false" role="button" class="view" go="home">首页</a>
+                </li>
+                <li class="dropdown">
+                  <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 签到管理
+                    <span class="caret"></span>
+                  </a>
+                  <ul role="menu" class="dropdown-menu">
+                    <li>
+                      <a class="view" go="ask_leave">请假管理</a>
+                    </li>
+                    <li>
+                      <a class="view" go="ask_leave_rule">签到规则管理</a>
+                    </li>
+                    <li>
+                      <a class="view" go="ask_search">签到查询</a>
+                    </li>
+                    <li>
+                      <a class="view" go="ask_count">签到统计</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 预算管理
+                    <span class="caret"></span>
+                  </a>
+                  <ul role="menu" class="dropdown-menu">
+                    <li class="view" go="budget_mange_shop-2">
+                      <a>店面预算</a>
+                    </li>
+                    <li class="view" go="budget_mange_team">
+                      <a>团队预算</a>
+                    </li>
+                    <li class="view" go="budget_mange_unit">
+                      <a>车商单位预算</a>
+                    </li>
+                    <li class="view" go="budget_mange_city">
+                      <a>市公司预算</a>
+                    </li>
+                    <li class="view" go="budget_mange_province">
+                      <a>省公司预算</a>
+                    </li>
+                    <li class="view" go="distribution_scheme">
+                      <a>省派发预算计划</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 监控分析
+                    <span class="caret"></span>
+                  </a>
+                  <ul role="menu" class="dropdown-menu">
+                    <li class="hover" show="list1">
+                      <a>地市监控</a>
+                      <ul id="list1" class="list">
+                        <li class="view" go="budget_city_all">
+                          <a>整体</a>
+                        </li>
+                        <li class="view" go="budget_city_county">
+                          <a>城区/县域</a>
+                        </li>
+                        <li class="view" go="budget_city_area">
+                          <a>片区</a>
+                        </li>
+                        <li class="view" go="budget_city_group">
+                          <a>集团</a>
+                        </li>
+                        <li class="view" go="budget_city_brand">
+                          <a>品牌 </a>
+                        </li>
+                        <li class="view" go="budget_city_nature">
+                          <a>店面性质</a>
+                        </li>
+                        <li class="view" go="budget_city_scale">
+                          <a>店面分级</a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="hover" show="list2">
+                      <a>预交车监控</a>
+                      <ul id="list2" class="list">
+                        <li class="view" go="monitoring_advance_all">
+                          <a>整体</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_city">
+                          <a>城区/县域</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_area">
+                          <a>片区</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_group">
+                          <a>集团</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_brand">
+                          <a>品牌</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_font">
+                          <a>店面性质</a>
+                        </li>
+                        <li class="view" go="monitoring_advance_scale">
+                          <a>店面分级</a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="hover" show="list3">
+                      <a>份额监控</a>
+                      <ul id="list3" class="list">
+                        <li class="view" go="monitoring_share_all">
+                          <a>整体</a>
+                        </li>
+                        <li class="view" go="monitoring_share_city">
+                          <a>城区/县域</a>
+                        </li>
+                        <li class="view" go="monitoring_share_area">
+                          <a>片区</a>
+                        </li>
+                        <li class="view" go="monitoring_share_group">
+                          <a>集团</a>
+                        </li>
+                        <li class="view" go="monitoring_share_brand">
+                          <a>品牌</a>
+                        </li>
+                        <li class="view" go="monitoring_share_font">
+                          <a>店面性质</a>
+                        </li>
+                        <li class="view" go="monitoring_share_scale">
+                          <a>店面分级</a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="hover" show="list4">
+                      <a>店面监控</a>
+                      <ul id="list4" class="list">
+                        <li class="view" go="focus_group">
+                          <a>重点集团</a>
+                        </li>
+                        <li class="view" go="focus_brand">
+                          <a>重点品牌</a>
+                        </li>
+                        <li class="view" go="focus_shop">
+                          <a>店面清单</a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="hover" show="list5">
+                      <a>送修资源分析</a>
+                      <ul id="list5" class="list">
+                        <li class="view" go="resource_analysis_all">
+                          <a>整体</a>
+                        </li>
+                        <li class="view" go="resource_analysis_county">
+                          <a>城区/县域</a>
+                        </li>
+                        <li class="view" go="resource_analysis_area">
+                          <a>片区</a>
+                        </li>
+                        <li class="view" go="resource_analysis_group">
+                          <a>集团</a>
+                        </li>
+                        <li class="view" go="resource_analysis_brand">
+                          <a>品牌</a>
+                        </li>
+                        <li class="view" go="resource_analysis_natrue">
+                          <a>店面性质</a>
+                        </li>
+                        <li class="view" go="resource_analysis_upgrade">
+                          <a>店面升级</a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="view" go="monitoring_city_all">
+                      <a>城区县域分析</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> 系统管理
+                    <span class="caret"></span>
+                  </a>
+                  <ul role="menu" class="dropdown-menu">
+                    <li>
+                      <a class="view" go="organization_manage">机构管理</a>
+                    </li>
+                    <li>
+                      <a class="view" go="push_message">推送消息</a>
+                    </li>
+                    <li>
+                      <a class="view" go="role_manage-2">按人分配权限</a>
+                    </li>
+                    <li>
+                      <a class="view" go="brand_setting">品牌设定</a>
+                    </li>
+                    <li>
+                      <a class="view" go="warning_machining">预警机制</a>
+                    </li>
+                    <li>
+                      <a class="view" go="password_update">修改密码</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-top-links navbar-right">
+                <li>
+                  <a href="./pages/login.html"> 
+                    <i class="fa fa-sign-out"></i> 退出
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="row J_mainContent" id="content-main">
+        <iframe class="J_iframe" id="home" name="iframe0" width="100%" height="100%" src="./pages/home.html" frameborder="0"
+          data-id="./pages/home.html" seamless></iframe>
+      </div>
+      <div class="footer clearfix">
+        <p class="copyright">中国人民财产保险股份有限公司河南省分公司 版权所有</p>
+        <p class="support-tech ">技术支持：
+          <a target="_blank" href="https://www.bigita.com/">南京贝吉塔网络科技有限公司</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+  <!-- 全局js -->
+  <script src="./static/js/jquery-3.2.1.min.js"></script>
+  <script src="./static/js/bootstrap.min.js"></script>
+  <script src="./static/module/layer/layer.js"></script>
+
+  <script>
+    window.adress = {};
+    //将已加载的iframe保存起来
+    $(".view").on("click", function () {
+      //所有的标题加点击事件
+      $("#navbar li.active").each(function () {
+        var clas = "";
+        if ($(this).attr("class") != "active") {
+          clas = "dropdown";
+        }
+        $(this).attr("class", clas);
+        //清除所有的active
+      })
+      //点击的按钮加上active
+      if ($(this).parent().parent().attr("class") == "dropdown-menu") {
+        $(this).parent().parent().parent().attr("class", "dropdown active");
+        //如果是下拉框则父亲也加上active
+      }
+      //点击的按钮加上active
+      if ($(this).parent().parent().parent().attr("class") == "dropdown-menu") {
+        $(this).parent().parent().parent().parent().attr("class", "dropdown active");
+        //如果是下拉框则父亲也加上active
+      }
+      var go = $(this).attr("go");
+      if (adress[go]) {
+        //如果已经跳转过此页面 则隐藏原来的iframe并储存  显示现在的iframe
+        $(".J_mainContent").children().each(function () {
+          $(this).css("display", "none");
+        });
+        adress[go].css("display", "block");
+      } else {
+        //如果第一次跳转此页面，则加载此iframe 并存储当前的iframe
+        var iframe = $("<iframe class='J_iframe' id=" + go +
+          " name='iframe0' width='100%' height='100%' src='./pages/" + go + ".html'\n" +
+          "frameborder='0'\n" +
+          "data-id='./pages/" + go + ".html' seamless></iframe>");
+        var id = $(".J_mainContent").children().attr("id");
+        adress[id] = $(".J_mainContent").children();
+        adress[id].css("display", "none");
+        adress[go] = iframe;
+        $(".J_mainContent").append(iframe);
+      }
+    })
+
+  </script>
 </body>
 </html>
